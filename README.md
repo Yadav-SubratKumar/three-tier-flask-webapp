@@ -17,25 +17,25 @@ You need a setup that includes
     `docker network create shop-network`
    
 Step 1: For **Frontend Part** 
-<pre> ```    
+    ```sh
     cd frontend
     docker build -t flask-frontend .
     docker run -d --name frontend --network shop-network -p 80:80 flask-frontend
-```</pre>
+    ```
     
 Step 2: For **Backend Part**
-    
-    ```
+    ```sh
     cd backend
     docker build -t flask-backend .
     docker run -d --name backend-container --network shop-network  -e DB_HOST=database-container -e DB_USER=root -e DB_PASSWORD=rootpassword -e DB_NAME=shopping_db -p 5000:5000  flask-backend
     ```
-
-Step 3: For **Database Part**
     
-    ```
+Step 3: For **Database Part**
+    ```sh
     cd database
     docker build -t flask-database .
     docker run -d --name database-container --network shop-network  -e MYSQL_DATABASE=shopping_db -e MYSQL_ROOT_PASSWORD=rootpassword -p 3306:3306 flask-database
     ```
- 
+                                                                            **OR**
+Step 1: For **By using Compose**
+   Using docker-compose.yml `docker compose up -d`
