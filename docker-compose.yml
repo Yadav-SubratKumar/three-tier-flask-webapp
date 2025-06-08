@@ -1,47 +1,42 @@
-version: '3.8'
-
 services:
-  db:
-    build: ./database
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: testdb
-    volumes:
-      - db-data:/var/lib/mysql
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - "3306:3306"
-    networks:
-      - app_network
   backend:
     build: ./backend
-    environment:
-      DB_HOST: db
-      DB_USER: root
-      DB_PASSWORD: root
-      DB_NAME: testdb
     ports:
-      - "5000:5000"
-    depends_on:
-      - db
+      - "5050:5050" 
     networks:
-      - app_network
+      - shop_network
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root 
+      - DB_PASSWORD=rootpassword 
+      - DB_NAME=shopping_db 
+    depends_on:
+      - mysql_db
+
   frontend:
     build: ./frontend
     ports:
-      - "8080:80"
+      - "80:80"  
+    networks:
+      - shop_network
     depends_on:
       - backend
+      
+  mysql_db:
+    image: ./database 
+    ports:
+      - "3306:3306"  
     networks:
-      - app_network
-volumes:
-  db-data:
+      - shop_network
+    environment:
+      - MYSQL_DATABASE=shopping_db
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    volumes:
+      - mysql-data:/data/db
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
 networks:
-  app_network:
-    driver: bridge
+  shop_network:
   
-
-
-
-
-
+volumes:
+  mysql-data:
