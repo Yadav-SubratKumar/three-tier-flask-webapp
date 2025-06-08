@@ -23,7 +23,7 @@ services:
       - backend
       
   mysql_db:
-    image: ./database 
+    build: ./database 
     ports:
       - "3306:3306"  
     networks:
