@@ -17,11 +17,11 @@ You need a setup that includes
     `docker network create shop-network`
    
 Step 1: For **Frontend Part** 
-    ```
+<pre> ```    
     cd frontend
     docker build -t flask-frontend .
     docker run -d --name frontend --network shop-network -p 80:80 flask-frontend
-    ```
+```</pre>
     
 Step 2: For **Backend Part**
     
