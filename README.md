@@ -22,9 +22,10 @@ Step 1: For **Frontend Part**
     `docker run -d --name frontend --network shop-network -p 80:80 flask-frontend`
     
 Step 2: For **Backend Part**
-    `cd backend`
-    `docker build -t flask-backend .`
-    `docker run -d --name backend-container --network shop-network  -e DB_HOST=database-container -e DB_USER=root -e DB_PASSWORD=rootpassword -e DB_NAME=shopping_db -p 5000:5000  flask-backend`
+    ```cd backend
+    
+    docker build -t flask-backend .
+    docker run -d --name backend-container --network shop-network  -e DB_HOST=database-container -e DB_USER=root -e DB_PASSWORD=rootpassword -e DB_NAME=shopping_db -p 5000:5000  flask-backend```
 Step 3: For **Database Part**
     `cd database`
     `docker build -t flask-database .`
